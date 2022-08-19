@@ -20,15 +20,27 @@ interface Props {
 
 export const PoolsTable: FC<Props> = ({ pools }) => {
   const [page, setPage] = useState(1);
+  const maxPage = Math.floor((pools?.length || 0) / 10);
+
   return (
     <TableContainer border="1px" rounded="xl">
       <Table size="md" variant="simple" colorScheme="gray">
         <TableCaption>
           <Center w="100%">
             <HStack spacing="2">
-              <ArrowBackIcon boxSize={4} />
-              <Text fontSize="sm">Page 1 of 5</Text>
-              <ArrowForwardIcon boxSize={4} />
+              <ArrowBackIcon
+                boxSize={4}
+                onClick={() => setPage((page) => (page != 1 ? page - 1 : page))}
+              />
+              <Text fontSize="sm">
+                Page {page} of {maxPage || 1}
+              </Text>
+              <ArrowForwardIcon
+                boxSize={4}
+                onClick={() =>
+                  setPage((page) => (page != maxPage ? page + 1 : page))
+                }
+              />
             </HStack>
           </Center>
         </TableCaption>
@@ -41,7 +53,7 @@ export const PoolsTable: FC<Props> = ({ pools }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {pools?.map((pool) => (
+          {pools?.slice((page - 1) * 10, page * 10).map((pool) => (
             <Row key={pool.id} data={pool} />
           ))}
         </Tbody>
