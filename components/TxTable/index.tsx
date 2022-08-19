@@ -38,7 +38,7 @@ export const TxTable: FC<Props> = ({ txns }) => {
               <ArrowForwardIcon
                 boxSize={4}
                 onClick={() =>
-                  setPage((page) => (page != maxPage ? page + 1 : page))
+                  setPage((page) => (page != (maxPage || 1) ? page + 1 : page))
                 }
               />
             </HStack>
