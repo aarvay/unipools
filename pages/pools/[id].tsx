@@ -24,9 +24,10 @@ import { useWatchlist } from "../../hooks/useWatchlist";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { id } = router.query;
-  const { pool } = usePool(id as string);
-  const { getTxns } = useTxns(id as string);
+  const id = router.query.id as string;
+
+  const { pool } = usePool(id);
+  const { getTxns } = useTxns(id);
 
   const [txFilter, setTxFilter] = useState<TxType>("Swap");
   const txns = useMemo(() => getTxns(txFilter), [getTxns, txFilter]);

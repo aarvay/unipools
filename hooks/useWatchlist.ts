@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const useWatchlist = () => {
-  const [pools, setPools] = useLocalStorage("watchlist", []);
+  const [pools, setPools] = useLocalStorage<any[]>("watchlist", []);
 
   const add = (id: string) => setPools((prev: string[]) => [...prev, id]);
 

@@ -7,10 +7,10 @@ import { useWatchlist } from "../hooks/useWatchlist";
 
 const Home: NextPage = () => {
   const { pools } = usePools();
-  const { pools: watchPoolIds } = useWatchlist();
+  const { pools: watchedPoolIds } = useWatchlist();
   const watchedPools = useMemo(
-    () => pools?.filter((p: any) => watchPoolIds.includes(p.id)),
-    [pools]
+    () => pools?.filter((p: any) => watchedPoolIds?.includes(p.id)),
+    [pools, watchedPoolIds]
   );
   return (
     <Box w="90%">
