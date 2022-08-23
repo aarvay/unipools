@@ -7,6 +7,8 @@ import {
   TextProps,
 } from "@chakra-ui/react";
 import { FC } from "react";
+import Image from "next/image";
+import { getTokenLogoUrl } from "../../shared/utils";
 
 interface Props {
   pool: any;
@@ -18,14 +20,28 @@ export const TokenPair: FC<Props> = ({
   pool,
   avatarSize = "xs",
   fontSize = "md",
-}) => (
-  <HStack spacing="1">
-    <AvatarGroup size={avatarSize}>
-      <Avatar name={pool?.token0.symbol} />
-      <Avatar name={pool?.token1.symbol} />
-    </AvatarGroup>
-    <Text fontSize={fontSize}>
-      {pool?.token0.symbol}/{pool?.token1.symbol}
-    </Text>
-  </HStack>
-);
+}) => {
+  return (
+    <HStack>
+      <AvatarGroup size={avatarSize}>
+        <Avatar>
+          <Image
+            src={getTokenLogoUrl(pool?.token0.id)}
+            alt={pool?.token0.symbol}
+            layout="fill"
+          />
+        </Avatar>
+        <Avatar>
+          <Image
+            src={getTokenLogoUrl(pool?.token1.id)}
+            alt={pool?.token1.symbol}
+            layout="fill"
+          />
+        </Avatar>
+      </AvatarGroup>
+      <Text fontSize={fontSize}>
+        {pool?.token0.symbol}/{pool?.token1.symbol}
+      </Text>
+    </HStack>
+  );
+};
